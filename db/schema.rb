@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615093823) do
+ActiveRecord::Schema.define(version: 20180716204533) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string "email"
@@ -58,6 +58,11 @@ ActiveRecord::Schema.define(version: 20170615093823) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "news_targets", id: false, force: :cascade do |t|
+    t.integer "news_id", null: false
+    t.integer "target_id", null: false
+  end
+
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer "resource_owner_id", null: false
     t.integer "application_id", null: false
@@ -101,6 +106,20 @@ ActiveRecord::Schema.define(version: 20170615093823) do
 
   create_table "specializations", force: :cascade do |t|
     t.string "title"
+  end
+
+  create_table "specializations_targets", id: false, force: :cascade do |t|
+    t.integer "specialization_id", null: false
+    t.integer "target_id", null: false
+  end
+
+  create_table "targets", force: :cascade do |t|
+    t.integer "city_id"
+    t.integer "profession_status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_targets_on_city_id"
+    t.index ["profession_status_id"], name: "index_targets_on_profession_status_id"
   end
 
 end
